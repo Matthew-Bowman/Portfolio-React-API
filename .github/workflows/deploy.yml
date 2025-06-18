@@ -35,7 +35,7 @@ jobs:
           target: "/var/www/matthewbowman.uk/public_api/"
           strip_components: 0
 
-      - name: Reload PM2 process
+      - name: Install dependencies and reload PM2 process
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
@@ -43,4 +43,5 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /var/www/matthewbowman.uk/public_api
+            npm ci
             pm2 start ecosystem.config.js || pm2 reload ecosystem.config.js
