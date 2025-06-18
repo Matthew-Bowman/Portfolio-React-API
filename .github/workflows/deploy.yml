@@ -1,56 +1,46 @@
-name: Build and Deploy Vite site
+name: Deploy Express App
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch: # Allow manual trigger
+      - live
+  workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
-
-      - name: Clean server directory before deploy
+      - name: Clean server directory except ecosystem.config.js
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            if [ -d /var/www/matthewbowman.uk/public_live ]; then
-              rm -rf /var/www/matthewbowman.uk/public_live/*
-            fi
+            shopt -s extglob
+            cd /var/www/matthewbowman.uk/public_api
+            rm -rf !("ecosystem.config.js")
 
-      - name: Deploy to server via SCP
+      - name: Upload app files to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "dist/**"
-          target: "/var/www/matthewbowman.uk/public_live/"
-          strip_components: 1
+          source: "."
+          target: "/var/www/matthewbowman.uk/public_api/"
+          strip_components: 0
 
-      # Notify Discord on success
-      - name: Notify Discord
-        if: success()
-        run: |
-          curl -H "Content-Type: application/json" \
-            -X POST \
-            -d '{"content": "**Build succeeded!** 🎉\nRepository: '"${{ github.repository }}"'\nBranch: '"${{ github.ref_name }}"'\nRun: <'"${{ github.run_url }}"'>"}' \
-            ${{ secrets.DISCORD_WEBHOOK_URL }}
+      - name: Reload PM2 process
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /var/www/matthewbowman.uk/public_api
+            pm2 start ecosystem.config.js || pm2 reload ecosystem.config.js
