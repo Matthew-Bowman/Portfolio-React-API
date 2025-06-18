@@ -4,6 +4,9 @@
 # VS Code
 .vscode
 
+# Ecosystem File for PM2 (Contains Secrets)
+ecosystem.config.js
+
 ### Node ###
 # Logs
 logs
