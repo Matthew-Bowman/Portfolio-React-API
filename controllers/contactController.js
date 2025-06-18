@@ -21,7 +21,7 @@ const createEnquiryHandler = async (req, res) => {
             return res.status(404).json(errorResponse('No arbitrage opportunities found'));
         }
 
-        return res.json(successResponse(enquiryCreated));
+        return res.json(successResponse());
     } catch (err) {
         console.error('Error in createEnquiryHandler:', err);
         return res.status(500).json(errorResponse('Internal server error'));
