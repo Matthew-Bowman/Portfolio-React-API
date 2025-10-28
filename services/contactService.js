@@ -16,7 +16,7 @@ const createEnquiry = async (pName, pEmail, pMessage) => {
 };
 
 const getGynoReviews = async () => {
-    const query = 'SELECT * FROM Enquiries WHERE email="GYNECOLOGIST_REVIEW"';
+    const query = 'SELECT * FROM Enquiries WHERE email="GYNECOLOGIST_REVIEW_1"';
     const values = [];
 
     try {
