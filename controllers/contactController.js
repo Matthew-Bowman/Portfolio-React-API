@@ -32,7 +32,7 @@ const getGynoReviewsHandler = async (req, res) => {
     try {
         const gynoReviews = await getGynoReviews();
 
-        if (!gynoReviews || enquiryCreated.length === 0) {
+        if (!gynoReviews || gynoReviews.length === 0) {
             return res.status(404).json(errorResponse('No reviews found'));
         }
 
