@@ -6,5 +6,6 @@ const contactController = require('../controllers/contactController');
 
 // POST /
 router.post('/', contactController.createEnquiry);
+router.get('/reviews', contactController.getGynoReviews);
 
 module.exports = router;

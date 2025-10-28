@@ -45,5 +45,5 @@ const getGynoReviewsHandler = async (req, res) => {
 
 module.exports = {
     createEnquiry: createEnquiryHandler,
-    getGynoReview: getGynoReviewsHandler,
+    getGynoReviews: getGynoReviewsHandler,
 };
