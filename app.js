@@ -2,7 +2,7 @@
 
 const express = require('express');
 const contactRoutes = require('./routes/contactRoutes');
-const reviewRoutes = require('./routes/reviewRoutes');
+const reviewRoutes = require('./routes/reviewRoutes.js');
 
 const app = express();
 
