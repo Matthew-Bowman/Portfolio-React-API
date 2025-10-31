@@ -16,7 +16,7 @@ const createGynoReview = async (pName, pMessage, pRating) => {
 }
 
 const getGynoReviews = async (pLimit, pOffset) => {
-    const query = 'SELECT * FROM Reviews ORDER BY Created_At DESC LIMIT ? OFFSET ?';
+    const query = 'SELECT * FROM Reviews ORDER BY Created DESC LIMIT ? OFFSET ?';
     const values = [pLimit, pOffset];
 
     try {
