@@ -5,7 +5,10 @@ const { successResponse, errorResponse } = require('../utils/responseHelper');
 const { validateRating } = require('../utils/validationHelper');
 
 const createGynoReviewHandler = async (req, res) => {
-    const { name, message, rating, honeypot } = req?.body ?? null;
+    const name = req?.body?.name ?? null;
+    const message = req?.body?.message ?? null;
+    const rating = req?.body?.rating ?? null;
+    const honeypot = req?.body?.honeypot ?? null;
 
     const ratingValid = validateRating(rating);
 
@@ -32,7 +35,8 @@ const createGynoReviewHandler = async (req, res) => {
 };
 
 const getGynoReviewsHandler = async (req, res) => {
-    const { limit, offset } = req?.body ?? null;
+    const limit = req?.body?.limit ?? null;
+    const offset = req?.body?.offset ?? null;
 
     if (!limit || !offset) {
         return res.status(400).json({ error: 'All fields are required.' });

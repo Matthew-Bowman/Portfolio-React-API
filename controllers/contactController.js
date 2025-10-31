@@ -4,7 +4,11 @@ const { createEnquiry, getGynoReviews } = require('../services/contactService');
 const { successResponse, errorResponse } = require('../utils/responseHelper');
 
 const createEnquiryHandler = async (req, res) => {
-    const { name, email, message, honeypot } = req?.body ?? null;
+    const name = req?.body?.name ?? null;
+    const email = req?.body?.email ?? null;
+    const message = req?.body?.message ?? null;
+    const honeypot = req?.body?.honeypot ?? null;
+
 
     if (!name || !email || !message) {
         return res.status(400).json({ error: 'All fields are required.' });
