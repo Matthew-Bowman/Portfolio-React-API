@@ -29,7 +29,7 @@ const createGynoReviewHandler = async (req, res) => {
 
         return res.json(successResponse());
     } catch (err) {
-        console.error('Error in createReviewHandler:', err);
+        console.error('Error in createGynoReviewHandler:', err);
         return res.status(500).json(errorResponse('Internal server error'));
     }
 };
@@ -51,7 +51,7 @@ const getGynoReviewsHandler = async (req, res) => {
 
         return res.json(successResponse(gynoReviews));
     } catch (err) {
-        console.error('Error in createEnquiryHandler:', err);
+        console.error('Error in getGynoReviewsHandler:', err);
         return res.status(500).json(errorResponse('Internal server error'));
     }
 }
