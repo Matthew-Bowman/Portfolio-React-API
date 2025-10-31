@@ -1,4 +1,4 @@
-// services/arbitrageService.js
+// services/contactService.js
 
 const db = require('../db');
 
@@ -15,20 +15,6 @@ const createEnquiry = async (pName, pEmail, pMessage) => {
     }
 };
 
-const getGynoReviews = async () => {
-    const query = 'SELECT * FROM Enquiries WHERE email="GYNECOLOGIST_REVIEW_1"';
-    const values = [];
-
-    try {
-        const [rows] = await db.execute(query, values);
-        return rows;
-    } catch (err) {
-        console.error('Error getting reviews:', err);
-        throw err;
-    }
-}
-
 module.exports = {
     createEnquiry,
-    getGynoReviews,
 };

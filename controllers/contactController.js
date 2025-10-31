@@ -28,22 +28,6 @@ const createEnquiryHandler = async (req, res) => {
     }
 };
 
-const getGynoReviewsHandler = async (req, res) => {
-    try {
-        const gynoReviews = await getGynoReviews();
-
-        if (!gynoReviews || gynoReviews.length === 0) {
-            return res.status(404).json(errorResponse('No reviews found'));
-        }
-
-        return res.json(successResponse(gynoReviews));
-    } catch (err) {
-        console.error('Error in createEnquiryHandler:', err);
-        return res.status(500).json(errorResponse('Internal server error'));
-    }
-}
-
 module.exports = {
     createEnquiry: createEnquiryHandler,
-    getGynoReviews: getGynoReviewsHandler,
 };

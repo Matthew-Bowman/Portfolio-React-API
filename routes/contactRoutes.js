@@ -2,10 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
-const contactController = require('../controllers/contactController');
+const contactController = require('../controllers/reviewController');
 
 // POST /
 router.post('/', contactController.createEnquiry);
-router.get('/', contactController.getGynoReviews);
 
 module.exports = router;

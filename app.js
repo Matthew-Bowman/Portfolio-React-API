@@ -18,5 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Other routes
 app.use('/contact', contactRoutes);
+app.use('/review', reviewRoutes);
 
 module.exports = app;
