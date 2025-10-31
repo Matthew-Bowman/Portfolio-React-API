@@ -1,6 +1,6 @@
 // controllers/contactController.js
 
-const { createEnquiry, getGynoReviews } = require('../services/contactService');
+const { createEnquiry } = require('../services/contactService');
 const { successResponse, errorResponse } = require('../utils/responseHelper');
 
 const createEnquiryHandler = async (req, res) => {
