@@ -35,8 +35,8 @@ const createGynoReviewHandler = async (req, res) => {
 };
 
 const getGynoReviewsHandler = async (req, res) => {
-    const limit = req?.body?.limit ?? null;
-    const offset = req?.body?.offset ?? null;
+    const limit = req?.param?.limit ?? null;
+    const offset = req?.param?.offset ?? null;
 
     if (!limit || !offset) {
         return res.status(400).json({ error: 'All fields are required.' });
