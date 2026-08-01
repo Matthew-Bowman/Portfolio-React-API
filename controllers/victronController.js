@@ -1,117 +1,22 @@
-const {
-    createVictronReading,
-    getVictronReadings,
-    getLatestVictronReading
-} = require('../services/victronService');
+const express = require('express');
+const router = express.Router();
 
+const victronController = require('../controllers/victronController');
 
+function verifyApiKey(req, res, next) {
+    const key = req.headers['x-api-key'];
 
-const createReading = async (req, res) => {
-
-    try {
-
-        const reading = req.body;
-
-
-        if (!reading) {
-            return res.status(400).json({
-                error: 'No reading supplied'
-            });
-        }
-
-
-        const result =
-            await createVictronReading(reading);
-
-
-        return res.json({
-            success: true,
-            id: result.insertId
+    if (!key || key !== process.env.VICTRON_API_KEY) {
+        return res.status(401).json({
+            error: 'Unauthorized'
         });
-
-
-    } catch (err) {
-
-        console.error(
-            'Error creating Victron reading:',
-            err
-        );
-
-
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
-
     }
 
-};
+    next();
+}
 
+router.post('/', verifyApiKey, victronController.createReading);
+router.get('/', victronController.getReadings);
+router.get('/latest', victronController.getLatestReading);
 
-
-const getReadings = async (req, res) => {
-
-    try {
-
-        const limit =
-            Number(req.query.limit) || 100;
-
-
-        const readings =
-            await getVictronReadings(limit);
-
-
-        return res.json(readings);
-
-
-    } catch (err) {
-
-        console.error(
-            'Error getting Victron readings:',
-            err
-        );
-
-
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
-
-    }
-
-};
-
-
-
-const getLatestReading = async (req, res) => {
-
-    try {
-
-        const reading =
-            await getLatestVictronReading();
-
-
-        return res.json(reading);
-
-
-    } catch (err) {
-
-        console.error(
-            'Error getting latest Victron reading:',
-            err
-        );
-
-
-        return res.status(500).json({
-            error: 'Internal server error'
-        });
-
-    }
-
-};
-
-
-
-module.exports = {
-    createReading,
-    getReadings,
-    getLatestReading
-};
+module.exports = router;
