@@ -3,12 +3,19 @@ const router = express.Router();
 
 const victronController = require('../controllers/victronController');
 
+function verifyApiKey(req, res, next) {
+    const key = req.headers['x-api-key'];
 
-router.post('/', victronController.createReading);
+    if (!key || key !== process.env.VICTRON_API_KEY) {
+        return res.status(401).json({
+            error: 'Unauthorized'
+        });
+    }
 
-router.get('/', victronController.getReadings);
+    next();
+}
 
-router.get('/latest', victronController.getLatestReading);
-
+router.post('/', verifyApiKey, victronController.createVictronReading);
+router.get('/', victronController.getVictronReadings);
 
 module.exports = router;
