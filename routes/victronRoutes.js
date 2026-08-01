@@ -15,7 +15,8 @@ function verifyApiKey(req, res, next) {
     next();
 }
 
-router.post('/', verifyApiKey, victronController.createVictronReading);
-router.get('/', victronController.getVictronReadings);
+router.post('/', verifyApiKey, victronController.createReading);
+router.get('/', victronController.getReadings);
+router.get('/latest', victronController.getLatestReading);
 
 module.exports = router;
