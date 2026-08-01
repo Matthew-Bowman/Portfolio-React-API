@@ -3,6 +3,7 @@
 const express = require('express');
 const contactRoutes = require('./routes/contactRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const victronRoutes = require('./routes/victronRoutes');
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 // Other routes
 app.use('/contact', contactRoutes);
 app.use('/review', reviewRoutes);
+app.use('/victron', victronRoutes);
 
 module.exports = app;
