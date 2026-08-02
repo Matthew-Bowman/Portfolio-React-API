@@ -102,13 +102,6 @@ const initialise = (server) => {
                     );
 
 
-
-                    subscriptions.set(
-                        socket.id,
-                        current
-                    );
-
-
                 }
             );
 
@@ -176,7 +169,14 @@ const initialise = (server) => {
 
     eventBus.subscribe(
         "*",
-        () => {}
+        (event, data) => {
+
+            publish(
+                event,
+                data
+            );
+
+        }
     );
 
 

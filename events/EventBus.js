@@ -18,14 +18,19 @@ class EventBus {
 
     publish(event, data) {
 
-        const callbacks = this.listeners[event];
+        const callbacks = [
 
-        if (!callbacks) {
-            return;
-        }
+            ...(this.listeners[event] || []),
+
+            ...(this.listeners["*"] || [])
+
+        ];
+
 
         callbacks.forEach(callback => {
-            callback(data);
+
+            callback(event, data);
+
         });
 
     }
