@@ -10,7 +10,31 @@ const initialise = (server) => {
 
     io = new Server(server, {
         cors: {
-            origin: "*"
+            origin: (origin, callback) => {
+
+                // Allow non-browser clients (curl, mobile apps, etc.)
+                if (!origin) {
+                    return callback(null, true);
+                }
+
+
+                // Allow any of your subdomains
+                if (
+                    origin.endsWith(".matthewbowman.uk") ||
+                    origin === "https://matthewbowman.uk"
+                ) {
+                    return callback(null, true);
+                }
+
+
+                callback(new Error("Not allowed by CORS"));
+
+            },
+
+            methods: [
+                "GET",
+                "POST"
+            ]
         }
     });
 
