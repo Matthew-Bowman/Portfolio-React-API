@@ -1,5 +1,5 @@
 const db = require('../db/victronDb');
-
+const eventBus = require('../events/EventBus');
 
 
 const createVictronReading = async (data) => {
@@ -41,6 +41,12 @@ const createVictronReading = async (data) => {
             query,
             values
         );
+
+    // Notify subscribers after successful database insert
+    eventBus.publish(
+        "victron.reading",
+        data
+    );
 
 
     return rows;
