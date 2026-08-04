@@ -59,6 +59,11 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         data.acCurrent ?? null
     ];
 
+    if (values.slice(1).every(value => value === null)) {
+        console.log("Ignoring empty Victron reading:", data.deviceType);
+        return null;
+    }
+
 
     const [rows] =
         await db.execute(
