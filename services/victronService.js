@@ -21,11 +21,17 @@ const createVictronReading = async (data) => {
 
     const values = [
         data.deviceType ?? null,
+
         data.chargeState ?? null,
+
         data.chargerError ?? null,
+
         data.batteryVoltage ?? null,
-        data.batteryChargingCurrent ?? null,
+
+        data.batteryChargingCurrent ?? data.current ?? null,
+
         data.yieldToday ?? null,
+
         data.solarPower ?? null
     ];
 
