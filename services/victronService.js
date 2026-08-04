@@ -32,7 +32,9 @@ const createVictronReading = async (data) => {
 
         data.yieldToday ?? null,
 
-        data.solarPower ?? null
+        data.solarPower ?? null,
+
+        data.deviceType ?? null
 
     ];
 
