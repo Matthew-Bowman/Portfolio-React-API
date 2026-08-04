@@ -6,17 +6,25 @@ const createVictronReading = async (data) => {
 
 
     const query = `
-    INSERT INTO VictronReadings
-    (
-        DeviceType,
-        ChargeState,
-        ChargerError,
-        BatteryVoltage,
-        BatteryChargingCurrent,
-        YieldToday,
-        SolarPower
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+INSERT INTO VictronReadings
+(
+    DeviceType,
+    ChargeState,
+    ChargerError,
+    BatteryVoltage,
+    BatteryChargingCurrent,
+    YieldToday,
+    SolarPower,
+    OutputVoltage1,
+    OutputCurrent1,
+    OutputVoltage2,
+    OutputCurrent2,
+    OutputVoltage3,
+    OutputCurrent3,
+    Temperature,
+    AcCurrent
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `;
 
     const values = [
@@ -32,7 +40,23 @@ const createVictronReading = async (data) => {
 
         data.yieldToday ?? null,
 
-        data.solarPower ?? null
+        data.solarPower ?? null,
+
+        data.outputVoltage1 ?? null,
+
+        data.outputCurrent1 ?? null,
+
+        data.outputVoltage2 ?? null,
+
+        data.outputCurrent2 ?? null,
+
+        data.outputVoltage3 ?? null,
+
+        data.outputCurrent3 ?? null,
+
+        data.temperature ?? null,
+
+        data.acCurrent ?? null
     ];
 
 
