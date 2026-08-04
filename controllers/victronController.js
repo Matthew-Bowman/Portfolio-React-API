@@ -19,6 +19,10 @@ const createReading = async (req, res) => {
 
         const result = await createVictronReading(reading);
 
+        if (!result) {
+            return res.status(204).send();
+        }
+
         return res.json({
             success: true,
             id: result.insertId
