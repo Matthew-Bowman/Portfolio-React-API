@@ -8,6 +8,7 @@ const createVictronReading = async (data) => {
     const query = `
         INSERT INTO VictronReadings
         (
+            DeviceType,
             ChargeState,
             ChargerError,
             BatteryVoltage,
@@ -15,7 +16,7 @@ const createVictronReading = async (data) => {
             YieldToday,
             SolarPower
         )
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
 
