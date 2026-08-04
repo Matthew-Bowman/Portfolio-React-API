@@ -14,7 +14,8 @@ const createVictronReading = async (data) => {
             BatteryVoltage,
             BatteryChargingCurrent,
             YieldToday,
-            SolarPower
+            SolarPower,
+            deviceType
         )
         VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
